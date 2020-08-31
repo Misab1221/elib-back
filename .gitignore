@@ -1,0 +1,7 @@
+node_modules/
+.idea/
+dist/
+uploads/*
+!uploads/user/
+uploads/user/*
+!uploads/user/default.png
