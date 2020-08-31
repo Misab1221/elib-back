@@ -1,6 +1,7 @@
 import mysql from "mysql";
 
-export const connection=mysql.createConnection({
+export const connection=mysql.createPool({
+    connectionLimit:10,
     host:"us-cdbr-east-02.cleardb.com",
     user:"b3963114736c57",
     password:"153c7125",
