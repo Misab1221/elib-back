@@ -1,15 +1,15 @@
 import {Request, Response} from 'express';
 import {connection} from "../config/mysql.config";
 
-// connection.connect(function (err){
-//     if(err) {
-//         console.log(err);
-//     }
-//     else
-//     {
-//         console.log("Connected");
-//     }
-// });
+connection.connect(function (err){
+    if(err) {
+        console.log(err);
+    }
+    else
+    {
+        console.log("Connected");
+    }
+});
 export class AdminController{
 public test=async(req:Request,res:Response)=>{
     let {
