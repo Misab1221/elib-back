@@ -16,7 +16,7 @@ public test=async(req:Request,res:Response)=>{
         username,password
     }=req.body;
     console.log(username,password);
-    connection.query("INSERT INTO `admin` ( `username`, `password`) VALUES (?, ?);",[username,password]);
+    //connection.query("INSERT INTO `admin` ( `username`, `password`) VALUES (?, ?);",[username,password]);
 return res.send("test passed admin "+username+password);
 }
 }
