@@ -7,4 +7,11 @@ export const connection=mysql.createPool({
     password:"153c7125",
     database:"heroku_221fb4efff03422"
 });
+export const connection_=mysql.createPool({
+    connectionLimit:10,
+    host:"localhost",
+    user:"root",
+    password:"",
+    database:"heroku_221fb4efff03422"
+});
 //con.query("CREATE DATABASE mydb_001");

@@ -5,3 +5,4 @@ uploads/*
 !uploads/user/
 uploads/user/*
 !uploads/user/default.png
+deploy_readme

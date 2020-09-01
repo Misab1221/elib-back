@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-import {connection} from "../config/mysql.config";
-
+import {AdminModel} from '../Models/Admin'
+import {BasicResponse} from "../Common/response";
 // connection.connect(function (err){
 //     if(err) {
 //         console.log(err);
@@ -16,7 +16,14 @@ public test=async(req:Request,res:Response)=>{
         username,password
     }=req.body;
     console.log(username,password);
-    connection.query("INSERT INTO `admin` ( `username`, `password`) VALUES (?, ?);",[username,password]);
+    if(!username||!password){
+        const response:BasicResponse={
+            status:false,
+            message:"Username or Password is missing"
+        };
+        AdminModel.adminLogin(username,password);
+        return res.send(response);
+    }
 return res.send("test passed admin "+username+password);
 }
 }
