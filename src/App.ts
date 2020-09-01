@@ -13,7 +13,7 @@ export class App{
     }
     private setRoutes():void{
         this.express.use("/admin",admin_routes);
-        admin_routes.get('/test-get',(req,res)=>{
+        this.express.get('/test-get',(req,res)=>{
             res.send("test-get passed");
         });
     }
