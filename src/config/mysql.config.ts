@@ -7,7 +7,7 @@ export const connection=mysql.createPool({
     password:"153c7125",
     database:"heroku_221fb4efff03422"
 });
-export const connection_=mysql.createPool({
+export const connection1=mysql.createPool({
     connectionLimit:10,
     host:"localhost",
     user:"root",

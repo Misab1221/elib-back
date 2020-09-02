@@ -21,9 +21,29 @@ public test=async(req:Request,res:Response)=>{
             status:false,
             message:"Username or Password is missing"
         };
-        AdminModel.adminLogin(username,password);
         return res.send(response);
     }
+    AdminModel.adminLogin(username,password);
 return res.send("test passed admin "+username+password);
-}
+};
+public testDb=async(req:Request,res:Response)=>{
+        let {
+            username,password
+        }=req.body;
+        console.log(username,password);
+        if(!username||!password){
+            const response:BasicResponse={
+                status:false,
+                message:"Username or Password is missing"
+            };
+            return res.send(response);
+        }
+        AdminModel.adminInsert(username,password,function(st:any){
+            if(st)
+            return res.send("1 Row inserted");
+            return res.send("Unable to process");
+            }
+        );
+    }
+
 }
