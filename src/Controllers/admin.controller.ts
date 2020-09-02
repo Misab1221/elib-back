@@ -43,6 +43,28 @@ public testDb=async(req:Request,res:Response)=>{
             return res.send("1 Row inserted");
             return res.send("Unable to process");
             }
+
+
+    );
+
+    }
+    public testsign=async(req:Request,res:Response)=>{
+        let {
+            uname,email,spwd,cpwd
+        }=req.body;
+        console.log(uname,email,spwd,cpwd);
+        if(!uname||!email||!spwd||!cpwd){
+            const response:BasicResponse={
+                status:false,
+                message:"Datas were missing"
+            };
+            return res.send(response);
+        }
+        AdminModel.signinsert(uname,email,spwd, cpwd,function(st:any){
+                if(st)
+                    return res.send("1 Row inserted");
+                return res.send("Unable to process");
+            }
         );
     }
 

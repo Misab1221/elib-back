@@ -7,5 +7,6 @@ const admin_routes:Router=Router();
 admin_routes.post('/test',adminController.test);
 admin_routes.get('/test-get',adminController.test);
 admin_routes.post('/test-db',adminController.testDb);
+admin_routes.post('/test-sign',adminController.testsign);
 
 export default admin_routes;
