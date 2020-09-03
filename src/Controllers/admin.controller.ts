@@ -136,7 +136,7 @@ public verifyToken=async(req:Request,res:Response)=>{
         if(!book_id||!book_name||!author||!publications){
             const response:BasicResponse={
                 status:false,
-                message:"Datas were missing"
+                message:"Data is missing"
             };
             return res.send(response);
         }
