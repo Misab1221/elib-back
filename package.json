@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start1": "ts-node src/server.ts",
-    "start": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",
+    "start": "ts-node src/server.ts",
+    "start1": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
