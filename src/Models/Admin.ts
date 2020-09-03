@@ -12,8 +12,7 @@ static adminLogin(username:string,password:string,callback:any){
             return callback(true);
         });
 }
-static
-    adminInsert(username:string,password:string,callback:any){
+static adminInsert(username:string,password:string,callback:any){
         connection.query("INSERT INTO admin(`username`,`password`) values(?,?) ;",
             [username,password],
             (err,result)=>
@@ -23,8 +22,7 @@ static
             });
     }
 
-    static
-    signinsert(uname:string,email:string,spwd:string,cpwd:string,callback:any){
+    static signinsert(uname:string,email:string,spwd:string,cpwd:string,callback:any){
         connection.query("INSERT INTO signup(`uname`,`email`,spwd,cpwd) values(?,?,?,?) ;",
             [uname,email,spwd,cpwd],
             (err,result)=>
@@ -34,8 +32,7 @@ static
             });
     }
 
-    static
-    bookinsert(book_id:string,book_name:string,author:string,publications:string,callback:any){
+    static bookinsert(book_id:string,book_name:string,author:string,publications:string,callback:any){
         connection.query("INSERT INTO addbooks(`book_id`,`book_name`,author,publications) values(?,?,?,?) ;",
             [book_id,book_name,author,publications],
             (err,result)=>
@@ -45,8 +42,7 @@ static
             });
     }
 
-    static
-    bookdelete(book_id:string,callback:any){
+    static bookdelete(book_id:string,callback:any){
         connection.query("DELETE from addbooks WHERE `book_id`=?  ;",
             [book_id],
             (err,result)=>
