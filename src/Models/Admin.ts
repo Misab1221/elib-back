@@ -30,4 +30,16 @@ static
             });
     }
 
+    static
+    bookinsert(book_id:string,book_name:string,author:string,publications:string,callback:any){
+        connection.query("INSERT INTO addbooks(`book_id`,`book_name`,author,publications) values(?,?,?,?) ;",
+            [book_id,book_name,author,publications],
+            (err,result)=>
+            {
+                if(err) throw err;
+                return callback(true);
+            });
+    }
+
+
 }

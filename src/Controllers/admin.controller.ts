@@ -68,4 +68,24 @@ public testDb=async(req:Request,res:Response)=>{
         );
     }
 
+    public addbooks=async(req:Request,res:Response)=>{
+        let {
+            book_id,book_name,author,publications
+        }=req.body;
+        console.log(book_id,book_name,author,publications);
+        if(!book_id||!book_name||!author||!publications){
+            const response:BasicResponse={
+                status:false,
+                message:"Datas were missing"
+            };
+            return res.send(response);
+        }
+        AdminModel.bookinsert(book_id,book_name,author,publications,function(st:any){
+                if(st)
+                    return res.send("1 Row inserted");
+                return res.send("Unable to process");
+            }
+        );
+    }
+
 }
