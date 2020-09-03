@@ -1,15 +1,17 @@
 import express from "express";
-//const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 //const fileUpload = require("express-fileupload");
 import admin_routes from "./Routes/index";
+import user_routes from "./Routes/index";
+
 import bodyParser from "body-parser";
 export class App{
     public express:express.Application;
     constructor() {
         this.express=express();
+        this.setCors();
         this.setMiddleWares();
         this.setRoutes();
-//this.setCors();
     }
     private setRoutes():void{
         this.express.use("/admin",admin_routes);
@@ -30,7 +32,7 @@ export class App{
     private setMiddleWares(): void {
 
         //this.express.use(fileUpload());
-        //this.express.use(cookieParser());
+        this.express.use(cookieParser());
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({extended: false}));
     }

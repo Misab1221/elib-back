@@ -1,0 +1,1 @@
+export const AdminSecret="How you doin?";
