@@ -29,7 +29,7 @@ public login=async(req:Request,res:Response)=>{
     AdminModel.adminLogin(username,password,function(st:any){
         if(st){
             let token=Authenticate.setAdminToken(username);
-            res.cookie("token",token,{sameSite:"none"});
+            res.cookie("token",token,{sameSite:"none",secure:true});
             response.status=true;
             response.message="Successfully logged in";
             return res.send(response);
