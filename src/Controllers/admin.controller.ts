@@ -88,4 +88,25 @@ public testDb=async(req:Request,res:Response)=>{
         );
     }
 
+    public deletebook=async(req:Request,res:Response)=>{
+        let {
+            book_id,
+        }=req.body;
+        console.log(book_id,);
+        if(!book_id){
+            const response:BasicResponse={
+                status:false,
+                message:"Datas were missing"
+            };
+            return res.send(response);
+        }
+        AdminModel.bookdelete(book_id,function(st:any){
+                if(st)
+                    return res.send("1 Deleted");
+                return res.send("Unable to process");
+            }
+        );
+    }
+
+
 }

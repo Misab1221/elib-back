@@ -41,5 +41,16 @@ static
             });
     }
 
+    static
+    bookdelete(book_id:string,callback:any){
+        connection.query("DELETE from addbooks WHERE `book_id`=?  ;",
+            [book_id],
+            (err,result)=>
+            {
+                if(err) throw err;
+                return callback(true);
+            });
+    }
+
 
 }
