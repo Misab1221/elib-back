@@ -121,7 +121,9 @@ public verifyToken=async(req:Request,res:Response)=>{
     };
 public addBooks=async(req:Request,res:Response)=>{
     const response:BasicResponse={status:false, message:"Data is missing"};
-    let token=req.cookies.token;
+    let {
+        book_title,author,publications,edition,year,price,token
+    }=req.body;
     console.log(token);
     let auth=false;
     Authenticate.verifyAdminToken(token,function (auth_:any) {
@@ -132,9 +134,6 @@ public addBooks=async(req:Request,res:Response)=>{
         response.message="Authentication required";
         return res.send(response);
     }
-        let {
-            book_title,author,publications,edition,year,price
-        }=req.body;
         console.log(book_title,author,publications);
         if(!book_title||!author||!publications||!edition||!year||!price){
             response.status=false;
