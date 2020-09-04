@@ -17,3 +17,6 @@ export interface Book {
 export interface BookResponse extends BasicResponse {
     book?:Book;
 }
+export interface BooksResponse extends BasicResponse {
+    books?:Book[];
+}

@@ -64,6 +64,20 @@ static adminInsert(username:string,password:string,callback:any){
                 return callback(true,result[0]);
             });
     }
+    static booksGet(page_no:number,callback:any){
+    let page=(page_no*10)-10;
+        connection.query("SELECT * FROM `books` limit ?,10",
+            [page],
+            (err,result)=>
+            {
+                if(err) throw err;
+                console.log(result);
+                if(result.length<1)
+                    return callback(false);
+                return callback(true,result);
+            });
+    }
+
     static bookdelete(book_id:string,callback:any){
         connection.query("DELETE from addbooks WHERE `book_id`=?  ;",
             [book_id],

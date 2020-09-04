@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {AdminModel} from '../Models/Admin'
-import {BasicResponse, Book, BookResponse, LoginResponse} from "../Common/response";
+import {BasicResponse, Book, BookResponse, BooksResponse, LoginResponse} from "../Common/response";
 import {Authenticate} from '../Common/authenticate'
 
 export class AdminController{
@@ -216,6 +216,41 @@ public getBook=async(req:Request,res:Response)=>{
             }
         );
     };
+public getBooks=async(req:Request,res:Response)=>{
+        const response:BooksResponse={status:false, message:"Unable to fetch"};
+        let {
+            page_no,token
+        }=req.body;
+        console.log(token);
+        let auth=false;
+        Authenticate.verifyAdminToken(token,function (auth_:any) {
+            auth=auth_;
+        });
+        if(!auth){
+            console.log(auth);
+            response.message="Authentication required";
+            return res.send(response);
+        }
+        console.log(page_no);
+        if(!page_no){
+            page_no=1;
+        }
+    console.log(page_no);
+        AdminModel.booksGet(page_no,function(st:any,book:Book[]){
+            console.log("--");
+                console.log(book);
+                if(st){
+                    response.status=true;
+                    response.books=book;
+                    response.message="Book fetched succesfully";
+                    return res.send(response);
+                }
+                response.message="Invalid book id";
+                return res.send(response);
+            }
+        );
+    };
+
 
     public deleteBook=async(req:Request,res:Response)=>{
         let {
