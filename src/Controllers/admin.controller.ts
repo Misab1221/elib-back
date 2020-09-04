@@ -2,15 +2,7 @@ import {Request, Response} from 'express';
 import {AdminModel} from '../Models/Admin'
 import {BasicResponse, LoginResponse} from "../Common/response";
 import {Authenticate} from '../Common/authenticate'
-// connection.connect(function (err){
-//     if(err) {
-//         console.log(err);
-//     }
-//     else
-//     {
-//         console.log("Connected");
-//     }
-// });
+
 export class AdminController{
 public login=async(req:Request,res:Response)=>{
     let {
@@ -76,7 +68,7 @@ public testDb=async(req:Request,res:Response)=>{
     );
 
     }
-    public testsign=async(req:Request,res:Response)=>{
+public testSign=async(req:Request,res:Response)=>{
         let {
             uname,email,spwd,cpwd
         }=req.body;
@@ -127,9 +119,7 @@ public verifyToken=async(req:Request,res:Response)=>{
         });
 
     };
-
-
-    public addbooks=async(req:Request,res:Response)=>{
+public addBooks=async(req:Request,res:Response)=>{
         let {
             book_id,book_name,author,publications
         }=req.body;
@@ -148,8 +138,7 @@ public verifyToken=async(req:Request,res:Response)=>{
             }
         );
     }
-
-    public deletebook=async(req:Request,res:Response)=>{
+public deleteBook=async(req:Request,res:Response)=>{
         let {
             book_id,
         }=req.body;
