@@ -232,7 +232,7 @@ public getBooks=async(req:Request,res:Response)=>{
             return res.send(response);
         }
         console.log(page_no);
-        if(!page_no){
+        if(!page_no||page_no<1){
             page_no=1;
         }
     console.log(page_no);
@@ -242,10 +242,10 @@ public getBooks=async(req:Request,res:Response)=>{
                 if(st){
                     response.status=true;
                     response.books=book;
-                    response.message="Book fetched succesfully";
+                    response.message="Books fetched succesfully";
                     return res.send(response);
                 }
-                response.message="Invalid book id";
+                response.message="No data";
                 return res.send(response);
             }
         );
