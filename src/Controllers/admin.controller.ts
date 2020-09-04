@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {AdminModel} from '../Models/Admin'
-import {BasicResponse} from "../Common/response";
+import {BasicResponse, LoginResponse} from "../Common/response";
 import {Authenticate} from '../Common/authenticate'
 // connection.connect(function (err){
 //     if(err) {
@@ -16,7 +16,7 @@ public login=async(req:Request,res:Response)=>{
     let {
         username,password
     }=req.body;
-    const response:BasicResponse={
+    const response:LoginResponse={
         status:false,
         message:"Unable to process"
     };
@@ -29,8 +29,9 @@ public login=async(req:Request,res:Response)=>{
     AdminModel.adminLogin(username,password,function(st:any){
         if(st){
             let token=Authenticate.setAdminToken(username);
-            res.cookie("token",token,{sameSite:"none",secure:true});
+            res.cookie("token",token);
             response.status=true;
+            response.token=token;
             response.message="Successfully logged in";
             return res.send(response);
         }
