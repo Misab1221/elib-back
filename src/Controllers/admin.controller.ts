@@ -120,20 +120,33 @@ public verifyToken=async(req:Request,res:Response)=>{
 
     };
 public addBooks=async(req:Request,res:Response)=>{
+    const response:BasicResponse={status:false, message:"Data is missing"};
+    let token=req.cookies.token;
+    console.log(token);
+    let auth=false;
+    Authenticate.verifyAdminToken(token,function (auth_:any) {
+        auth=auth_;
+    });
+    if(!auth){
+        console.log(auth);
+        response.message="Authentication required";
+        return res.send(response);
+    }
         let {
-            book_id,book_name,author,publications
+            book_title,author,publications,edition,year,price
         }=req.body;
-        console.log(book_id,book_name,author,publications);
-        if(!book_id||!book_name||!author||!publications){
-            const response:BasicResponse={
-                status:false,
-                message:"Data is missing"
-            };
+        console.log(book_title,author,publications);
+        if(!book_title||!author||!publications||!edition||!year||!price){
+            response.status=false;
+            response.message="Some fields are missing";
             return res.send(response);
         }
-        AdminModel.bookinsert(book_id,book_name,author,publications,function(st:any){
-                if(st)
-                    return res.send("1 Row inserted");
+        AdminModel.bookinsert(book_title,author,publications,edition,year,price,function(st:any){
+                if(st){
+                    response.status=true;
+                    response.message="Book added succesfully";
+                    return res.send(response);
+                }
                 return res.send("Unable to process");
             }
         );

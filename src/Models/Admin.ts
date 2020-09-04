@@ -32,9 +32,9 @@ static adminInsert(username:string,password:string,callback:any){
             });
     }
 
-    static bookinsert(book_id:string,book_name:string,author:string,publications:string,callback:any){
-        connection.query("INSERT INTO addbooks(`book_id`,`book_name`,author,publications) values(?,?,?,?) ;",
-            [book_id,book_name,author,publications],
+    static bookinsert(book_title:string,author:string,publications:string,edition:string,year:string,price:string,callback:any,){
+        connection.query("INSERT INTO `books` (`book_id`, `book_title`, `author`, `publications`, `edition`, `year`, `price`) VALUES (NULL,?,?,?,?,?,?) ;",
+            [book_title,author,publications,edition,year,price],
             (err,result)=>
             {
                 if(err) throw err;
