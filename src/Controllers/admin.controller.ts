@@ -250,27 +250,37 @@ public getBooks=async(req:Request,res:Response)=>{
             }
         );
     };
-
-
-    public deleteBook=async(req:Request,res:Response)=>{
+public deleteBook=async(req:Request,res:Response)=>{
+        const response:BasicResponse={status:false, message:"Id is missing"};
         let {
-            book_id,
+            book_id,token
         }=req.body;
-        console.log(book_id,);
+        console.log(token);
+        let auth=false;
+        Authenticate.verifyAdminToken(token,function (auth_:any) {
+            auth=auth_;
+        });
+        if(!auth){
+            console.log(auth);
+            response.message="Authentication required";
+            return res.send(response);
+        }
         if(!book_id){
-            const response:BasicResponse={
-                status:false,
-                message:"Datas were missing"
-            };
+            response.status=false;
+            response.message="id is missing";
             return res.send(response);
         }
         AdminModel.bookdelete(book_id,function(st:any){
-                if(st)
-                    return res.send("1 Deleted");
+                if(st){
+                    response.status=true;
+                    response.message="Book deleted succesfully";
+                    return res.send(response);
+                }
                 return res.send("Unable to process");
             }
         );
     }
+
 
 
 }

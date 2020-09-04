@@ -41,6 +41,16 @@ static adminInsert(username:string,password:string,callback:any){
                 return callback(true);
             });
     }
+    static bookdelete(book_id:string,callback:any,){
+        connection.query("DELETE FROM `books` WHERE `books`.`book_id` = ? ;",
+            [book_id],
+            (err,result)=>
+            {
+                if(err) throw err;
+                return callback(true);
+            });
+    }
+
     static bookEdit(book_id:string,book_title:string,author:string,publications:string,edition:string,year:string,price:string,callback:any,){
         connection.query("UPDATE `books` SET `book_title` = ?, `author` = ?, `publications` = ?, `edition` = ?, `year` = ?, `price` = ? WHERE `books`.`book_id` = ?;",
             [book_title,author,publications,edition,year,price,book_id],
@@ -66,7 +76,7 @@ static adminInsert(username:string,password:string,callback:any){
     }
     static booksGet(page_no:number,callback:any){
     let page=(page_no*10)-10;
-        connection.query("SELECT * FROM `books` limit ?,10",
+        connection.query("SELECT * FROM `books` order by book_id desc limit ?,10",
             [page],
             (err,result)=>
             {
@@ -78,15 +88,6 @@ static adminInsert(username:string,password:string,callback:any){
             });
     }
 
-    static bookdelete(book_id:string,callback:any){
-        connection.query("DELETE from addbooks WHERE `book_id`=?  ;",
-            [book_id],
-            (err,result)=>
-            {
-                if(err) throw err;
-                return callback(true);
-            });
-    }
 
 
 }
