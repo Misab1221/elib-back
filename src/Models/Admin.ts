@@ -5,7 +5,7 @@ static adminLogin(username:string,password:string,callback:any){
         [username,password],
         (err,result)=>
         {
-            console.log("results :"+result[0]["c"]+err);
+            //console.log("results :"+result[0]["c"]+err);
             if(err) return callback(false);
             if(result[0]["c"]==0)
                 return callback(false);
@@ -41,7 +41,29 @@ static adminInsert(username:string,password:string,callback:any){
                 return callback(true);
             });
     }
-
+    static bookEdit(book_id:string,book_title:string,author:string,publications:string,edition:string,year:string,price:string,callback:any,){
+        connection.query("UPDATE `books` SET `book_title` = ?, `author` = ?, `publications` = ?, `edition` = ?, `year` = ?, `price` = ? WHERE `books`.`book_id` = ?;",
+            [book_title,author,publications,edition,year,price,book_id],
+            (err,result)=>
+            {
+                if(err) throw err;
+                if(result.affectedRows<1)
+                    return callback(false);
+                return callback(true);
+            });
+    }
+    static bookGet(book_id:string,callback:any){
+        connection.query("SELECT * FROM `books` WHERE `book_id` = ?",
+            [book_id],
+            (err,result)=>
+            {
+                if(err) throw err;
+                console.log(result.length);
+                if(result.length<1)
+                    return callback(false);
+                return callback(true,result[0]);
+            });
+    }
     static bookdelete(book_id:string,callback:any){
         connection.query("DELETE from addbooks WHERE `book_id`=?  ;",
             [book_id],

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {AdminModel} from '../Models/Admin'
-import {BasicResponse, LoginResponse} from "../Common/response";
+import {BasicResponse, Book, BookResponse, LoginResponse} from "../Common/response";
 import {Authenticate} from '../Common/authenticate'
 
 export class AdminController{
@@ -150,7 +150,74 @@ public addBooks=async(req:Request,res:Response)=>{
             }
         );
     }
-public deleteBook=async(req:Request,res:Response)=>{
+public editBooks=async(req:Request,res:Response)=>{
+        const response:BasicResponse={status:false, message:"Data is missing"};
+        let {
+            book_id,book_title,author,publications,edition,year,price,token
+        }=req.body;
+        console.log(token);
+        let auth=false;
+        Authenticate.verifyAdminToken(token,function (auth_:any) {
+            auth=auth_;
+        });
+        if(!auth){
+            console.log(auth);
+            response.message="Authentication required";
+            return res.send(response);
+        }
+        console.log(book_title,author,publications);
+        if(!book_id||!book_title||!author||!publications||!edition||!year||!price){
+            response.status=false;
+            response.message="Some fields are missing";
+            return res.send(response);
+        }
+        AdminModel.bookEdit(book_id,book_title,author,publications,edition,year,price,function(st:any){
+                if(st){
+                    response.status=true;
+                    response.message="Book updated succesfully";
+                    return res.send(response);
+                }
+                response.message="Invalid book id";
+                return res.send(response);
+            }
+        );
+    };
+public getBook=async(req:Request,res:Response)=>{
+        const response:BookResponse={status:false, message:"Unable to fetch"};
+        let {
+            book_id,token
+        }=req.body;
+        console.log(token);
+        let auth=false;
+        Authenticate.verifyAdminToken(token,function (auth_:any) {
+            auth=auth_;
+        });
+        if(!auth){
+            console.log(auth);
+            response.message="Authentication required";
+            return res.send(response);
+        }
+        console.log(book_id);
+        if(!book_id){
+            response.status=false;
+            response.message="Id is missing";
+            return res.send(response);
+        }
+        AdminModel.bookGet(book_id,function(st:any,book:Book){
+            console.log(book);
+                if(st){
+                    response.status=true;
+                    response.book=book;
+                    response.message="Book fetched succesfully";
+                    return res.send(response);
+                }
+                response.message="Invalid book id";
+                return res.send(response);
+            }
+        );
+    };
+
+    public deleteBook=async(req:Request,res:Response)=>{
         let {
             book_id,
         }=req.body;
