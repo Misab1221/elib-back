@@ -245,6 +245,7 @@ public getBooks=async(req:Request,res:Response)=>{
                     response.message="Books fetched succesfully";
                     return res.send(response);
                 }
+                response.status=true;
                 response.message="No data";
                 return res.send(response);
             }
