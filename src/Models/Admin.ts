@@ -87,6 +87,20 @@ static adminInsert(username:string,password:string,callback:any){
                 return callback(true,result);
             });
     }
+    static booksSearch(page_no:number,search:string,callback:any){
+        let page=(page_no*10)-10;
+        connection.query("SELECT * FROM `books` WHERE `book_title` LIKE ? or `author` LIKE ? or `publications` LIKE ? order by book_id desc limit ?,10",
+            ['%'+search+'%','%'+search+'%','%'+search+'%',page],
+            (err,result)=>
+            {
+                if(err) throw err;
+                console.log(result);
+                if(result.length<1)
+                    return callback(false);
+                return callback(true,result);
+            });
+    }
+
 
 
 

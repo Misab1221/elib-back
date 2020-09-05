@@ -251,6 +251,42 @@ public getBooks=async(req:Request,res:Response)=>{
             }
         );
     };
+public searchBooks=async(req:Request,res:Response)=>{
+        const response:BooksResponse={status:false, message:"Unable to fetch"};
+        let {
+            page_no,token,search
+        }=req.body;
+        console.log(token);
+        let auth=false;
+        Authenticate.verifyAdminToken(token,function (auth_:any) {
+            auth=auth_;
+        });
+        if(!auth){
+            console.log(auth);
+            response.message="Authentication required";
+            return res.send(response);
+        }
+        console.log(page_no);
+        if(!page_no||page_no<1){
+            page_no=1;
+        }
+        console.log(page_no);
+        AdminModel.booksSearch(page_no,search,function(st:any,book:Book[]){
+                console.log("--");
+                console.log(book);
+                if(st){
+                    response.status=true;
+                    response.books=book;
+                    response.message="Books fetched succesfully";
+                    return res.send(response);
+                }
+                response.status=true;
+                response.message="No data";
+                return res.send(response);
+            }
+        );
+    };
+
 public deleteBook=async(req:Request,res:Response)=>{
         const response:BasicResponse={status:false, message:"Id is missing"};
         let {
